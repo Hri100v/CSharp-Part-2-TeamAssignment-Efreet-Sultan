@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Text;
 
 public abstract class GameObject
 {
-    public GameObject(int x, int y, string symbol, ConsoleColor color)
+    private string[] symbol;
+    public GameObject(int x, int y, string[] symbol, ConsoleColor color)
     {
         this.X = x;
         this.Y = y;
@@ -22,7 +24,7 @@ public abstract class GameObject
         set;
     }
 
-    public string Symbol
+    public string[] Symbol
     {
         get;
         set;
@@ -38,6 +40,18 @@ public abstract class GameObject
     {
         Console.SetCursorPosition(this.X, this.Y);
         Console.ForegroundColor = this.Color;
-        Console.Write(this.Symbol);
+        Console.Write(this.ToString());
+    }
+
+    public override string ToString()
+    {
+        StringBuilder result = new StringBuilder();
+
+        foreach (var symbol in this.Symbol)
+        {
+            result.AppendLine(symbol);
+        }
+
+        return result.ToString();
     }
 }
